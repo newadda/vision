@@ -1,7 +1,12 @@
 import torch
 from PIL import Image
+import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
+
+## GUI 백엔드를 지정한다.
+matplotlib.use('TkAgg')
+
 
 # YOLOv5 모델 불러오기 (사전 학습된 'small' 모델 사용)
 model = torch.hub.load('ultralytics/yolov5', 'yolov5s')
@@ -13,9 +18,15 @@ image = Image.open(image_path)
 # 객체 감지
 results = model(image_path)
 
+
 # 감지된 결과 가져오기
 detections = results.pandas().xyxy[0]  # 감지된 객체의 좌표와 정보
 print(detections)  # 데이터프레임 형태로 출력
+
+
+
+
+
 
 # 결과 시각화
 fig, ax = plt.subplots(1, figsize=(12, 8))
